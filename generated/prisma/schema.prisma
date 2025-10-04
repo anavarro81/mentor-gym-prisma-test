@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Status {
+  active
+  pending
+  blocked
+  deleted
+}
+
+model User {
+  id                  Int     @id @default(autoincrement())
+  email               String  @unique
+  password_hash       String
+  name                String
+  profile_picture_url String?
+  status              Status  @default(pending)
+
+  // Relaciones opcionales (un User puede ser Coach, Athlete o ninguno)
+  coach   Coach?
+  athlete Athlete?
+}
+
+model Coach {
+  id          Int       @id
+  // El id del coach es PK y FK para la tabla User. 
+  user        User      @relation(fields: [id], references: [id])
+  description String
+  rating      Float
+  // Relación inversa: puede tener varios atletas
+  athletes    Athlete[]
+}
+
+model Athlete {
+  id                Int       @id
+  user              User      @relation(fields: [id], references: [id])
+  height            Float?
+  weight            Float?
+  birthday          DateTime?
+  Connection_status String
+
+  // Relación opcional con un coach
+  coachId Int?
+  coach   Coach? @relation(fields: [coachId], references: [id])
+}
