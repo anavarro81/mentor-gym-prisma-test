@@ -100,3 +100,23 @@ export const validateRegister = (payload: Partial<RegisterPayLoad>): ValidationR
     return {valid: false,  errors}
 
 }
+
+export const valdateLogin = (payload: Partial<LoginPayload>): ValidationResult => {
+
+  const {error} = loginSchema.validate(payload, {abortEarly: false})
+
+  if (!error) {
+    return {
+      valid: true, 
+      errors:[]  
+    }
+  }
+
+    const errors = error.details.map(detail => ({
+        field: detail.context?.key || 'unknow',
+        message: detail.message
+    }))
+
+    return {valid: false, errors}
+
+}

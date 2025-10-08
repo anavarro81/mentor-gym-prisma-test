@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.hashPassword = void 0;
+exports.comparePassword = exports.hashPassword = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 /**
  * Hashea una contraseña usando bcrypt.
@@ -26,4 +26,8 @@ const hashPassword = (password) => __awaiter(void 0, void 0, void 0, function* (
     return yield bcrypt_1.default.hash(password, salt);
 });
 exports.hashPassword = hashPassword;
+const comparePassword = (password, hashedPassword) => __awaiter(void 0, void 0, void 0, function* () {
+    return bcrypt_1.default.compareSync(password, hashedPassword);
+});
+exports.comparePassword = comparePassword;
 //# sourceMappingURL=auth.js.map

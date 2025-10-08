@@ -12,8 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.register = void 0;
+exports.login = exports.register = void 0;
 const auth_1 = require("../utils/auth");
+const jwt_1 = require("../utils/jwt");
 // import { PrismaClient } from '../../generated/prisma'
 // import { withAccelerate } from '@prisma/extension-accelerate'
 // const prisma = new PrismaClient().$extends(withAccelerate())
@@ -53,4 +54,29 @@ const register = (userData) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.register = register;
+const login = (userData) => __awaiter(void 0, void 0, void 0, function* () {
+    // Comprobar si existe el correo
+    const result = yield bd_1.default.user.findUnique({
+        where: {
+            email: userData.email
+        }
+    });
+    console.log(' result > ', result);
+    if (!result) {
+        throw new Error('Email no encontado');
+    }
+    const validLogin = (0, auth_1.comparePassword)(result.password_hash, userData.password);
+    console.log(' validLogin > ', validLogin);
+    if (!validLogin) {
+        throw new Error('Email o contraseña incorrecta');
+    }
+    const token = (0, jwt_1.generateSign)(String(result.id), result.email);
+    console.log('token ', token);
+    return {
+        id: result.id,
+        email: result.email,
+        token: token
+    };
+});
+exports.login = login;
 //# sourceMappingURL=auth.service.js.map

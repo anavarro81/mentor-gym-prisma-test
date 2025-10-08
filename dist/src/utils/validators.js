@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.validateRegister = exports.validateLogin = void 0;
+exports.valdateLogin = exports.validateRegister = exports.validateLogin = void 0;
 const joi_1 = __importDefault(require("joi"));
 const loginSchema = joi_1.default.object({
     email: joi_1.default.string()
@@ -85,4 +85,22 @@ const validateRegister = (payload) => {
     return { valid: false, errors };
 };
 exports.validateRegister = validateRegister;
+const valdateLogin = (payload) => {
+    const { error } = loginSchema.validate(payload, { abortEarly: false });
+    if (!error) {
+        return {
+            valid: true,
+            errors: []
+        };
+    }
+    const errors = error.details.map(detail => {
+        var _a;
+        return ({
+            field: ((_a = detail.context) === null || _a === void 0 ? void 0 : _a.key) || 'unknow',
+            message: detail.message
+        });
+    });
+    return { valid: false, errors };
+};
+exports.valdateLogin = valdateLogin;
 //# sourceMappingURL=validators.js.map

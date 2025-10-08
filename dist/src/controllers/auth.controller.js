@@ -73,6 +73,13 @@ const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
 });
 exports.register = register;
 const login = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const LoginPayload = req.body;
+    const validLogin = (0, validators_1.valdateLogin)(LoginPayload);
+    if (!validLogin.valid) {
+        res.status(400).json({ message: "Login incorrecto", error: validLogin.errors });
+    }
+    const user = yield authService.login(LoginPayload);
+    res.status(200).json(user);
 });
 exports.login = login;
 //# sourceMappingURL=auth.controller.js.map

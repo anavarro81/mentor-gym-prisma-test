@@ -1,5 +1,5 @@
-import {IUser} from '../types/auth'
-import {hashPassword} from '../utils/auth'
+import {IUser, LoginPayload} from '../types/auth'
+import {hashPassword, comparePassword} from '../utils/auth'
 import {generateSign} from '../utils/jwt'
 import bcrypt from 'bcrypt';
 // import { PrismaClient } from '../../generated/prisma'
@@ -66,4 +66,40 @@ export const register = async (userData: Partial<IUser>) => {
 
 
 
+}
+
+export const login = async (userData: LoginPayload) => {
+    
+    // Comprobar si existe el correo
+    const result = await prisma.user.findUnique({
+        where: {
+            email: userData.email
+    }})
+
+    console.log(' result > ', result)
+
+    if (!result) {
+        throw new Error('Email no encontado');
+    }
+
+    const validLogin = comparePassword(result.password_hash, userData.password)
+
+    console.log(' validLogin > ', validLogin)
+
+    if (!validLogin) {
+        throw new Error('Email o contraseña incorrecta');
+    }
+
+    const token = generateSign(String(result.id), result.email)
+
+    console.log('token ', token)
+
+    return {
+        id: result.id, 
+        email: result.email,
+        token: token
+    }
+
+
+    
 }
