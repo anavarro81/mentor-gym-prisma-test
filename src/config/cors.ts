@@ -1,3 +1,3 @@
 export const corsConfig = {
-    origin: "*"
+  origin: "*",
 };

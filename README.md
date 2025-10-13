@@ -23,13 +23,11 @@ API for login and registration with Prisma + Express + JWT (TypeScript).
   - `controllers/` - HTTP request handlers
   - `services/` - Business logic (auth, user management, etc.)
   - `routes/` - Express route declarations
-  - `dtos/` - Request/response shapes and validations
   - `utils/` - JWT helpers, validators, and small utilities
   - `types/` - Shared TypeScript types
 - `prisma/` - Prisma schema and migrations
 - `generated/` - Generated Prisma client and runtime files
 - `package.json`, `tsconfig.json` etc. at project root
-
 
 ## Environment variables (example)
 
@@ -80,19 +78,12 @@ Below are focused areas to inspect and improve. Use these as a checklist when au
 
 ### 1) Code security
 
-
 ### 2) How could this be optimized?
-
 
 ### 3) How to start writing unit or integration tests?
 
-
 ### 4) How to document the API professionally
-
 
 ### 5) Share code changes and commits when you modify things
 
-
 ### 6) Future improvements (roadmap ideas)
-
-
