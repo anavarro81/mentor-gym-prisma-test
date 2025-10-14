@@ -22,12 +22,10 @@ export const register = async (
 
     if (!validUser.valid) {
       // Si la validación falla, responde con error y detalles
-      res
-        .status(400)
-        .json({
-          message: "Datos del usuario incorrectos",
-          error: validUser.errors,
-        });
+      res.status(400).json({
+        message: "Datos del usuario incorrectos",
+        error: validUser.errors,
+      });
       return;
     }
     // Si la validación es correcta, crea el usuario
