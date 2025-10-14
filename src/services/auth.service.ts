@@ -18,28 +18,6 @@ export const register = async (userData: IUser) => {
   const { email, password, name } = userData;
 
   try {
-    if (!email) {
-      throw new Error("El email no está informado");
-    }
-
-    const bdEmail = await prisma.user.findUnique({
-      where: {
-        email: email,
-      },
-    });
-
-    if (bdEmail) {
-      throw new Error("El email ya está en uso");
-    }
-
-    if (!password) {
-      throw new Error("La password no está informada");
-    }
-
-    if (!name) {
-      throw new Error("El nombre no está informado");
-    }
-
     const hashedPassword = await hashPassword(password);
 
     const user = await prisma.user.create({
@@ -52,33 +30,33 @@ export const register = async (userData: IUser) => {
 
     return user;
   } catch (error) {
-    console.log("error al registrar el usuario ", error);
+    console.error("error al registrar el usuario ", error);
+    throw new Error('"error al registrar el usuario ", error');
   }
 };
 
 export const login = async (userData: LoginPayload) => {
   // Comprobar si existe el correo
+  
+  try {
+
   const result = await prisma.user.findUnique({
     where: {
       email: userData.email,
     },
   });
 
-  console.log(" result > ", result);
-
-  if (!result) {
+    if (!result) {
     throw new Error("Email no encontado");
   }
 
-  const validLogin = comparePassword(result.password_hash, userData.password);
+  const validLogin = await comparePassword(result.password_hash, userData.password);
 
-  console.log(" validLogin > ", validLogin);
-
-  if (!validLogin) {
+    if (!validLogin) {
     throw new Error("Email o contraseña incorrecta");
   }
 
-  const token = generateSign(String(result.id), result.email);
+    const token = generateSign(String(result.id), result.email);
 
   console.log("token ", token);
 
@@ -87,4 +65,22 @@ export const login = async (userData: LoginPayload) => {
     email: result.email,
     token: token,
   };
+
+
+    
+  } catch (error) {
+    console.error('Error en el login ', error)
+    throw new Error("Email o contraseña incorrecta");
+    
+  }
+
+  
+
+
+  
+
+  
+
+
+
 };
