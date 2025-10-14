@@ -1,7 +1,7 @@
 // Controlador de autenticación: gestiona el registro y login de usuarios
 import * as authService from "../services/auth.service";
 import { Request, Response, NextFunction } from "express";
-import { validateRegister, valdateLogin } from "../utils/validators";
+import { validateRegister, validateLogin } from "../utils/validators";
 
 /**
  * Controlador para el registro de usuario.
@@ -22,12 +22,10 @@ export const register = async (
 
     if (!validUser.valid) {
       // Si la validación falla, responde con error y detalles
-      res
-        .status(400)
-        .json({
-          message: "Datos del usuario incorrectos",
-          error: validUser.errors,
-        });
+      res.status(400).json({
+        message: "Datos del usuario incorrectos",
+        error: validUser.errors,
+      });
       return;
     }
     // Si la validación es correcta, crea el usuario
@@ -46,7 +44,9 @@ export const login = async (
 ): Promise<void> => {
   const LoginPayload = req.body;
 
-  const validLogin = valdateLogin(LoginPayload);
+  const validLogin = validateLogin(LoginPayload);
+
+  console.log('validLogin > ', validLogin)
 
   if (!validLogin.valid) {
     res
@@ -55,7 +55,13 @@ export const login = async (
     return;
   }
 
-  const user = await authService.login(LoginPayload);
+  try {
+    const user = await authService.login(LoginPayload);  
+    res.status(200).json(user);
+  } catch (error: any) {
+    res.status(500).json({message: error.message})
+  }
+  
 
-  res.status(200).json(user);
+  
 };

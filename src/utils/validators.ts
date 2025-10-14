@@ -1,10 +1,16 @@
 import Joi from "joi";
 import { RegisterPayLoad, LoginPayload } from "../types/auth";
+import prisma from "../config/bd";
 
 export interface ValidationResult {
   valid: boolean;
   errors: { field: string; message: string }[];
 }
+
+export const isEmailRegistered = async (email: string): Promise<Boolean> => {
+  const user = prisma.user.findUnique({ where: { email } });
+  return !!user;
+};
 
 const loginSchema = Joi.object({
   email: Joi.string().email().required().messages({
@@ -49,21 +55,32 @@ const registerSchema = Joi.object({
   }),
 });
 
-export const validateLogin = (
-  payload: LoginPayload,
-): ValidationResult => {
+export const validateLogin = (payload: LoginPayload): ValidationResult => {
   const { error } = loginSchema.validate(payload, { abortEarly: false });
 
-  if (!error) {
-    return { valid: true, errors: [] };
+  
+  
+  if (error) {
+    const errors = error.details.map((detail) => ({
+      field: detail.context?.key || "unknown",
+      message: detail.message,
+    }));
+    return { valid: false, errors };
   }
 
-  const errors = error.details.map((detail) => ({
-    field: detail.context?.key || "unknown",
-    message: detail.message,
-  }));
+  const emailRegistered = isEmailRegistered(payload.email);
 
-  return { valid: false, errors };
+  if (!emailRegistered) {
+    const errors: [{ field: string; message: string }] = [
+      { field: "", message: "" },
+    ];
+    errors.push({ field: "email", message: "email ya registrado" });
+    console.error("email ya registrado");
+
+    return { valid: false, errors: errors };
+  }
+
+  return { valid: true, errors: [] };
 };
 
 export const validateRegister = (
@@ -83,13 +100,18 @@ export const validateRegister = (
     message: detail.message,
   }));
 
-  return { valid: false, errors };
+  return { valid: true, errors:[] };
 };
 
-export const valdateLogin = (
-  payload: LoginPayload,
-): ValidationResult => {
+export const valdateLogin = (payload: LoginPayload): ValidationResult => {
   const { error } = loginSchema.validate(payload, { abortEarly: false });
+
+  if (error) {
+    const errors = error.details.map((detail) => ({
+      field: detail.context?.key || "unknown",
+      message: detail.message,
+    }));
+  }
 
   if (!error) {
     return {
@@ -98,10 +120,5 @@ export const valdateLogin = (
     };
   }
 
-  const errors = error.details.map((detail) => ({
-    field: detail.context?.key || "unknown",
-    message: detail.message,
-  }));
-
-  return { valid: false, errors };
+  return { valid: true, errors:[] };
 };
