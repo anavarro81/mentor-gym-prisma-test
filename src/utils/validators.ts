@@ -58,10 +58,8 @@ const registerSchema = Joi.object({
 export const validateLogin = (payload: LoginPayload): ValidationResult => {
   const { error } = loginSchema.validate(payload, { abortEarly: false });
 
-  // if (!error) {
-  //
-  // }
-
+  
+  
   if (error) {
     const errors = error.details.map((detail) => ({
       field: detail.context?.key || "unknown",
