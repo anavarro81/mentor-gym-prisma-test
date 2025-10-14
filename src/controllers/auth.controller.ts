@@ -53,7 +53,13 @@ export const login = async (
     return;
   }
 
-  const user = await authService.login(LoginPayload);
+  try {
+    const user = await authService.login(LoginPayload);  
+    res.status(200).json(user);
+  } catch (error: any) {
+    res.status(500).json({message: error.message})
+  }
+  
 
-  res.status(200).json(user);
+  
 };

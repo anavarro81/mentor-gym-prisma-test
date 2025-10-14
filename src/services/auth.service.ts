@@ -50,9 +50,13 @@ export const login = async (userData: LoginPayload) => {
     throw new Error("Email no encontado");
   }
 
-  const validLogin = await comparePassword(result.password_hash, userData.password);
+  const validLogin = await comparePassword(userData.password, result.password_hash);
+
+    console.log('result.password_hash ', result.password_hash)
+    console.log('userData.password ', userData.password)
 
     if (!validLogin) {
+    console.error('validLogin ', validLogin)  
     throw new Error("Email o contraseña incorrecta");
   }
 
