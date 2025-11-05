@@ -17,6 +17,7 @@ export const requestLogger = (req: Request, res: Response, next: NextFunction):v
 };
 
 export const errorLogger = (error: Error, req: Request, res: Response, next: NextFunction):void => {
+    
     logger.error('error no manejado: ', {
         message: error.message,
         stack: error.stack,

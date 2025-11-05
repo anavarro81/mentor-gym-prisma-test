@@ -2,7 +2,7 @@
 import * as authService from "../services/auth.service";
 import { Request, Response, NextFunction } from "express";
 import { validateRegister, validateLogin } from "../utils/validators";
-
+import logger from "../utils/logger";
 /**
  * Controlador para el registro de usuario.
  * - Valida los datos recibidos en el body.
@@ -49,6 +49,7 @@ export const login = async (
   console.log('validLogin > ', validLogin)
 
   if (!validLogin.valid) {
+    logger.warn(`Login incorrecto:  error: ${JSON.stringify(validLogin.errors)}` )
     res
       .status(400)
       .json({ message: "Login incorrecto", error: validLogin.errors });

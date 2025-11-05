@@ -46,24 +46,18 @@ const transports = [
             winston.format.json()
         ),     
     }),
-    new winston.transports.File({
-        filename: path.join('logs', 'audit', 'audit.log'),
-        level:'info',         
-        format: winston.format.combine(
-            winston.format.uncolorize(),
-            winston.format.json()
-        ),     
-    }),
 ];
 
 const logger = winston.createLogger({
     
-    level: process.env.LOG_LEVEL || "DEBUG",
+    level: process.env.LOG_LEVEL || "debug",
     levels, 
     format,
     transports,
 
 });
+
+
 
 export const auditLogger = winston.createLogger({
     level: "info",

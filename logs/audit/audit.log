@@ -1,0 +1,19 @@
+{"level":"warn","message":"peticion recibida : POST /auth/login","timestamp":"2025-11-04 10:25:37:2537"}
+{"level":"info","message":"petición recibida en POST, /auth/login","timestamp":"2025-11-04 10:25:37:2537"}
+{"level":"warn","message":"peticion recibida : POST /auth/login","timestamp":"2025-11-04 10:28:16:2816"}
+{"level":"info","message":"petición recibida en POST, /auth/login","timestamp":"2025-11-04 10:28:16:2816"}
+{"level":"warn","message":"POST: /auth/login - 400 - 3 ms","timestamp":"2025-11-04 10:28:16:2816"}
+{"level":"warn","message":"peticion recibida : POST /auth/login","timestamp":"2025-11-04 14:03:52:352"}
+{"level":"info","message":"petición recibida en POST, /auth/login","timestamp":"2025-11-04 14:03:52:352"}
+{"level":"warn","message":"POST: /auth/login - 400 - 15 ms","timestamp":"2025-11-04 14:03:52:352"}
+{"level":"warn","message":"peticion recibida : POST /auth/login","timestamp":"2025-11-04 14:06:07:67"}
+{"level":"info","message":"petición recibida en POST, /auth/login","timestamp":"2025-11-04 14:06:07:67"}
+{"level":"warn","message":"POST: /auth/login - 400 - 13 ms","timestamp":"2025-11-04 14:06:07:67"}
+{"level":"warn","message":"peticion recibida : POST /auth/login","timestamp":"2025-11-04 14:37:47:3747"}
+{"level":"info","message":"petición recibida en POST, /auth/login","timestamp":"2025-11-04 14:37:47:3747"}
+{"level":"warn","message":"Login incorrecto:  error: [{\"field\":\"email\",\"message\":\"El email no puede estar vacio\"}]","timestamp":"2025-11-04 14:37:47:3747"}
+{"level":"warn","message":"POST: /auth/login - 400 - 12 ms","timestamp":"2025-11-04 14:37:47:3747"}
+{"level":"warn","message":"peticion recibida : POST /auth/login/jj","timestamp":"2025-11-04 16:52:03:523"}
+{"level":"info","message":"petición recibida en POST, /auth/login/jj","timestamp":"2025-11-04 16:52:03:523"}
+{"level":"warn","message":"La url solicitada no existe","timestamp":"2025-11-04 16:52:03:523"}
+{"level":"warn","message":"POST: /auth/login/jj - 404 - 15 ms","timestamp":"2025-11-04 16:52:03:523"}

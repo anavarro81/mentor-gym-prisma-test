@@ -33,9 +33,11 @@ app.use((req, res, next) => {
 
 app.use("/auth/", authRoute);
 
-app.use("/", (req, res) => {
-  console.log("Middleware 404: No se encontró la ruta", req.method, req.url);
+app.use("/", (req, res) => {  
+  logger.warn(`La URL ${req.url} no existe` )
   res.status(404).json({ message: "La url solicitada no existe" });
 });
+
+app.use(errorLogger)
 
 export default app;

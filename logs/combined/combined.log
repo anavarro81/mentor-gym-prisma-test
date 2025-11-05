@@ -1,0 +1,12 @@
+{"level":"warn","message":"peticion recibida : POST /auth/login/jj","timestamp":"2025-11-04 17:36:34:3634"}
+{"level":"info","message":"petición recibida en POST, /auth/login/jj","timestamp":"2025-11-04 17:36:34:3634"}
+{"level":"warn","message":"La url solicitada no existe","timestamp":"2025-11-04 17:36:34:3634"}
+{"level":"warn","message":"POST: /auth/login/jj - 404 - 10 ms","timestamp":"2025-11-04 17:36:34:3634"}
+{"level":"warn","message":"peticion recibida : POST /auth/login/jj","timestamp":"2025-11-04 18:19:24:1924"}
+{"level":"info","message":"petición recibida en POST, /auth/login/jj","timestamp":"2025-11-04 18:19:24:1924"}
+{"level":"warn","message":"La url solicitada no existe","timestamp":"2025-11-04 18:19:24:1924"}
+{"level":"warn","message":"POST: /auth/login/jj - 404 - 12 ms","timestamp":"2025-11-04 18:19:24:1924"}
+{"level":"warn","message":"peticion recibida : POST /auth/login/jj","timestamp":"2025-11-04 18:21:10:2110"}
+{"level":"info","message":"petición recibida en POST, /auth/login/jj","timestamp":"2025-11-04 18:21:10:2110"}
+{"level":"warn","message":"La URL /auth/login/jj no existe","timestamp":"2025-11-04 18:21:10:2110"}
+{"level":"warn","message":"POST: /auth/login/jj - 404 - 18 ms","timestamp":"2025-11-04 18:21:10:2110"}
